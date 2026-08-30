@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Clothing Shop{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, #2c3e50 0%, #e74c3c 100%);
+        color: white;
+        padding: 8rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,100 600,300 T1200,300" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+        background-size: cover;
+        z-index: 1;
+    }
+    
+    .hero-section > * {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-section h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero-section p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        color: #ecf0f1;
+    }
+    
+    /* Featured Products */
+    .featured-section {
+        padding: 3rem 0;
+        background-color: #f8f9fa;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #e74c3c, #3498db);
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    /* Product Card */
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .product-image {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #95a5a6;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .product-image i {
+        font-size: 4rem;
+    }
+    
+    .product-card:hover .product-image {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+    }
+    
+    .product-info {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .product-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+    
+    .product-category {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin-bottom: 0.5rem;
+    }
+    
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #e74c3c;
+        margin-bottom: 1rem;
+    }
+    
+    .product-rating {
+        color: #f39c12;
+        margin-bottom: 1rem;
+    }
+    
+    .product-rating i {
+        margin-right: 0.2rem;
+    }
+    
+    .product-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: auto;
+    }
+    
+    /* Categories Section */
+    .categories-section {
+        padding: 3rem 0;
+        background: white;
+    }
+    
+    .category-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: #2c3e50;
+    }
+    
+    .category-card:hover {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .category-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .category-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    
+    /* Features Section */
+    .features-section {
+        padding: 3rem 0;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+    }
+    
+    .feature-box {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        color: #e74c3c;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-description {
+        color: #ecf0f1;
+        font-size: 0.95rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1>Welcome to ClothingShop</h1>
+        <p>Discover Premium Fashion & Quality Clothing for Every Style</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="{{ url_for('product.products') }}" class="btn btn-light btn-lg" style="font-weight: 600;">
+                <i class="fas fa-shopping-bag"></i> Shop Now
+            </a>
+            <a href="#featured" class="btn btn-outline-light btn-lg" style="font-weight: 600;">
+                <i class="fas fa-arrow-down"></i> View Collections
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+    <div class="container">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='shirts') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shirt"></i>
+                    </div>
+                    <div class="category-name">Shirts & Tops</div>
+                    <p class="mt-2">Casual, formal & stylish tops</p>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='pants') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pants"></i>
+                    </div>
+                    <div class="category-name">Pants & Bottoms</div>
+                    <p class="mt-2">Comfortable & trendy bottoms</p>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='dresses') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shop"></i>
+                    </div>
+                    <div class="category-name">Dresses</div>
+                    <p class="mt-2">Elegant & fashionable dresses</p>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='jackets') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-jacket"></i>
+                    </div>
+                    <div class="category-name">Jackets & Outerwear</div>
+                    <p class="mt-2">Warm & stylish outerwear</p>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='shoes') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <div class="category-name">Shoes</div>
+                    <p class="mt-2">Comfortable & stylish footwear</p>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('product.products', category='accessories') }}" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <div class="category-name">Accessories</div>
+                    <p class="mt-2">Complete your look</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-section" id="featured">
+    <div class="container">
+        <h2 class="section-title">Featured Collections</h2>
+        <div class="row">
+            {% if featured_products %}
+                {% for product in featured_products %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-shopping-bags"></i>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">{{ product.category.title() }}</div>
+                            <div class="product-name">{{ product.name }}</div>
+                            <div class="product-rating">
+                                {% for i in range(5) %}
+                                    {% if i < product.rating %}
+                                    <i class="fas fa-star"></i>
+                                    {% else %}
+                                    <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="ms-2" style="color: #7f8c8d; font-size: 0.9rem;">{{ "%.1f"|format(product.rating) }}</span>
+                            </div>
+                            <div class="product-price">${{ "%.2f"|format(product.price) }}</div>
+                            <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 1rem;">Stock: {{ product.stock_quantity }} items</p>
+                            <div class="product-actions">
+                                <a href="{{ url_for('product.product_detail', product_id=product.id) }}" class="btn btn-sm btn-primary flex-grow-1">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                {% if product.stock_quantity > 0 %}
+                                <a href="{{ url_for('product.product_detail', product_id=product.id) }}" class="btn btn-sm btn-outline-danger flex-grow-1">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </a>
+                                {% else %}
+                                <button class="btn btn-sm btn-secondary flex-grow-1" disabled>
+                                    Out of Stock
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> No products available yet.
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('product.products') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-bag"></i> View All Products
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="feature-title">Fast Shipping</div>
+                    <div class="feature-description">Free shipping on orders over $50</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-title">Secure Payment</div>
+                    <div class="feature-description">Safe & encrypted transactions</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="feature-title">Easy Returns</div>
+                    <div class="feature-description">30-day return policy</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-title">24/7 Support</div>
+                    <div class="feature-description">Dedicated customer service</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
